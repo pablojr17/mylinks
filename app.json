@@ -1,0 +1,12 @@
+{
+  "name": "mylink",
+  "displayName": "mylink",
+  "expo": {
+    "name": "mylink",
+    "slug": "mylink",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
