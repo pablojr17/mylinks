@@ -10,10 +10,12 @@ function Routes() {
   return (
     <Drawer.Navigator
       drawerContentOptions={{
-        activeBackgroundColor: '#2ccbb9',
-        activeTintColor: '#FFF',
+        activeBackgroundColor: '#7303c0',
+        style: { backgroundColor: '#03001e', opacity: .9 },
+        activeTintColor: '#fdeff9',
         labelStyle: {
-          fontSize: 19
+          fontSize: 19,
+          color: '#fff'
         }
 
       }}
@@ -23,10 +25,10 @@ function Routes() {
         component={Home}
         options={{
           title: 'Encurtar Link',
-          drawerIcon: ({ focused, size, color }) => (
+          drawerIcon: ({ focused, size }) => (
             <Ionicons
               name={focused ? 'cube' : 'cube-outline'}
-              color={color}
+              color="#fff"
               size={size}
             />
           )
@@ -40,7 +42,7 @@ function Routes() {
           drawerIcon: ({ focused, size, color }) => (
             <Ionicons
               name={focused ? 'stats-chart' : 'stats-chart-outline'}
-              color={color}
+              color="#fff"
               size={size}
             />
           )
