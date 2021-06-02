@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform } from 'react-native';
+import { TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform, Modal } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import StatusBarPage from '../../components/StatusBarPage';
 import { Feather } from '@expo/vector-icons';
@@ -18,12 +18,14 @@ import {
 } from './styles';
 
 import Menu from '../../components/Menu';
+import ModalLink from '../../components/ModalLink';
 
 export default function Home() {
   const [input, setInput] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
 
   function handleShortLink() {
-    console.log(input)
+    setModalVisible(true)
   }
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -47,27 +49,31 @@ export default function Home() {
           <ContainerContent>
             <Title>ShortenLink</Title>
             <SubTitle>Cole seu link para encurtar</SubTitle>
+
+            <ContainerInput>
+              <BoxIcon>
+                <Feather name="link" size={22} color="#fff" />
+              </BoxIcon>
+              <Input
+                placeholder="Cole seu link aqui"
+                placeholderTextColor="#FFF"
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType="url"
+                value={input}
+                onChangeText={(text) => setInput(text)}
+              />
+            </ContainerInput>
+
+            <ButtonLink onPress={handleShortLink}>
+              <ButtonLinkText>Gerar Link</ButtonLinkText>
+            </ButtonLink>
           </ContainerContent>
         </KeyboardAvoidingView>
 
-        <ContainerInput>
-          <BoxIcon>
-            <Feather name="link" size={22} color="#fff" />
-          </BoxIcon>
-          <Input
-            placeholder="Cole seu link aqui"
-            placeholderTextColor="#FFF"
-            autoCapitalize="none"
-            autoCorrect={false}
-            keyboardType="url"
-            value={input}
-            onChangeText={(text) => setInput(text)}
-          />
-        </ContainerInput>
-
-        <ButtonLink onPress={handleShortLink}>
-          <ButtonLinkText>Gerar Link</ButtonLinkText>
-        </ButtonLink>
+        <Modal visible={modalVisible} transparent animationType="slide">
+          <ModalLink onClose={() => setModalVisible(false)} />
+        </Modal>
       </LinearGradient>
     </TouchableWithoutFeedback>
   )
