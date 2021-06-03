@@ -33,7 +33,7 @@ export const Title = styled.Text`
 export const LongUrl = styled.Text`
   font-size: 17px;
   color: #a7a7a7;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   
 `;
 

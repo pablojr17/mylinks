@@ -1,9 +1,16 @@
-import { Platform, StatusBar } from 'react-native';
 import styled from 'styled-components/native';
 
-export const ButtonMenu = styled.TouchableOpacity`
-  top: ${Platform.OS === 'ios' ? StatusBar.currentHeight + '60' + 'px' : '13' + 'px'};
-  position: absolute;
-  margin: 0 20px;
-  justify-content: space-around;
-  `;
+export const ContainerButton = styled.TouchableOpacity`
+flex-direction: row;
+background-color: rgba(255,255,255, .21);
+margin: 7px 10px;
+padding: 12px;
+border-radius: 7px;
+`;
+
+export const Item = styled.Text`
+  color: #fff;
+  padding-left: 10px;
+  padding-right: 20px;
+  font-size: 18px;
+`;

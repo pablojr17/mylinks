@@ -23,6 +23,46 @@ export default function MyLinks() {
     {
       id: '2',
       link: 'https://stackoverflow.com/questions/64621739/react-native-android-couldnt-find-a-component-getcomponent-or-children'
+    },
+    {
+      id: '3',
+      link: 'https://stackoverflow.com/questions/64621739/react-native-android-couldnt-find-a-component-getcomponent-or-children'
+    },
+    {
+      id: '4',
+      link: 'https://stackoverflow.com/questions/64621739/react-native-android-couldnt-find-a-component-getcomponent-or-children'
+    },
+    {
+      id: '5',
+      link: 'https://stackoverflow.com/questions/64621739/react-native-android-couldnt-find-a-component-getcomponent-or-children'
+    },
+    {
+      id: '6',
+      link: 'https://stackoverflow.com/questions/64621739/react-native-android-couldnt-find-a-component-getcomponent-or-children'
+    },
+    {
+      id: '7',
+      link: 'https://stackoverflow.com/questions/64621739/react-native-android-couldnt-find-a-component-getcomponent-or-children'
+    },
+    {
+      id: '8',
+      link: 'https://stackoverflow.com/questions/64621739/react-native-android-couldnt-find-a-component-getcomponent-or-children'
+    },
+    {
+      id: '9',
+      link: 'https://stackoverflow.com/questions/64621739/react-native-android-couldnt-find-a-component-getcomponent-or-children'
+    },
+    {
+      id: '10',
+      link: 'https://stackoverflow.com/questions/64621739/react-native-android-couldnt-find-a-component-getcomponent-or-children'
+    },
+    {
+      id: '11',
+      link: 'https://stackoverflow.com/questions/64621739/react-native-android-couldnt-find-a-component-getcomponent-or-children'
+    },
+    {
+      id: '12',
+      link: 'https://stackoverflow.com/questions/64621739/react-native-android-couldnt-find-a-component-getcomponent-or-children'
     }
   ]
   return (

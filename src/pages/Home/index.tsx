@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform, Modal } from 'react-native';
+import { TouchableWithoutFeedback, ActivityIndicator, Keyboard, KeyboardAvoidingView, Platform, Modal } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import StatusBarPage from '../../components/StatusBarPage';
 import { Feather } from '@expo/vector-icons';
@@ -19,13 +19,41 @@ import {
 
 import Menu from '../../components/Menu';
 import ModalLink from '../../components/ModalLink';
+import api from '../../services/api';
+
+// interface DataProps {
+//   link: string;
+// }
 
 export default function Home() {
+  const [loading, setLoading] = useState(false);
   const [input, setInput] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+  const [data, setData] = useState('');
+  const [URL, setURL] = useState('');
 
-  function handleShortLink() {
-    setModalVisible(true)
+  async function handleShortLink() {
+    setLoading(true);
+
+    try {
+      const response = await api.post('/shorten', {
+        long_url: input
+      })
+      console.log(response.data)
+      setData(response.data.link);
+      setURL(response.data.long_url)
+      setModalVisible(true);
+
+      Keyboard.dismiss();
+      setLoading(false);
+      setInput('');
+
+    } catch (error) {
+      alert('Ops, algo de errado nã oestá certo.')
+      Keyboard.dismiss();
+      setInput('');
+      setLoading(false);
+    }
   }
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -66,13 +94,17 @@ export default function Home() {
             </ContainerInput>
 
             <ButtonLink onPress={handleShortLink}>
-              <ButtonLinkText>Gerar Link</ButtonLinkText>
+              {loading ? (
+                <ActivityIndicator color="#121212" size={24} />
+              ) : (
+                <ButtonLinkText>Gerar Link</ButtonLinkText>
+              )}
             </ButtonLink>
           </ContainerContent>
         </KeyboardAvoidingView>
 
         <Modal visible={modalVisible} transparent animationType="slide">
-          <ModalLink onClose={() => setModalVisible(false)} />
+          <ModalLink onClose={() => setModalVisible(false)} link={data} URL={URL} />
         </Modal>
       </LinearGradient>
     </TouchableWithoutFeedback>
