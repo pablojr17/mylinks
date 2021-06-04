@@ -26,8 +26,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-  const [data, setData] = useState('');
-  const [URL, setURL] = useState('');
+  const [data, setData] = useState({} || null);
 
   async function handleShortLink() {
     setLoading(true);
@@ -37,12 +36,13 @@ export default function Home() {
         long_url: input
       })
 
+      const { id, link } = response.data;
+      const datalink = { id, link, url: input }
 
-      setData(response.data.link);
-      setURL(response.data.long_url)
+      setData(datalink);
       setModalVisible(true);
 
-      saveLink('links', response.data.link)
+      saveLink('links', datalink)
 
       Keyboard.dismiss();
       setLoading(false);
@@ -104,7 +104,7 @@ export default function Home() {
         </KeyboardAvoidingView>
 
         <Modal visible={modalVisible} transparent animationType="slide">
-          <ModalLink onClose={() => setModalVisible(false)} link={data} URL={URL} />
+          <ModalLink onClose={() => setModalVisible(false)} data={data} />
         </Modal>
       </LinearGradient>
     </TouchableWithoutFeedback>

@@ -1,70 +1,56 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Modal } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import StatusBarPage from '../../components/StatusBarPage';
 import Menu from '../../components/Menu';
 
+import { ListItem } from '../../components/ListItem';
+import { useIsFocused } from '@react-navigation/core';
+import { getLinksSave, deleteLink } from '../../utils/storeLinks';
+import ModalLink from '../../components/ModalLink';
+
 import {
   Title,
-  ListLinks
-
+  ListLinks,
+  ContainerEmpty,
+  WarningText
 } from './styles';
-import { ListItem, ListItemProps } from '../../components/ListItem';
 
-export interface DataListProps extends ListItemProps {
-  id: string;
+export interface ListItemProps {
+  id: string,
+  link: string,
+  url: string
 }
 
 export default function MyLinks() {
-  const data: DataListProps[] = [
-    {
-      id: '1',
-      link: 'https://stackoverflow.com/questions/60663805/couldnt-find-a-component-or-children-prop-for-the-screen-home-this-can-h'
-    },
-    {
-      id: '2',
-      link: 'https://stackoverflow.com/questions/64621739/react-native-android-couldnt-find-a-component-getcomponent-or-children'
-    },
-    {
-      id: '3',
-      link: 'https://stackoverflow.com/questions/64621739/react-native-android-couldnt-find-a-component-getcomponent-or-children'
-    },
-    {
-      id: '4',
-      link: 'https://stackoverflow.com/questions/64621739/react-native-android-couldnt-find-a-component-getcomponent-or-children'
-    },
-    {
-      id: '5',
-      link: 'https://stackoverflow.com/questions/64621739/react-native-android-couldnt-find-a-component-getcomponent-or-children'
-    },
-    {
-      id: '6',
-      link: 'https://stackoverflow.com/questions/64621739/react-native-android-couldnt-find-a-component-getcomponent-or-children'
-    },
-    {
-      id: '7',
-      link: 'https://stackoverflow.com/questions/64621739/react-native-android-couldnt-find-a-component-getcomponent-or-children'
-    },
-    {
-      id: '8',
-      link: 'https://stackoverflow.com/questions/64621739/react-native-android-couldnt-find-a-component-getcomponent-or-children'
-    },
-    {
-      id: '9',
-      link: 'https://stackoverflow.com/questions/64621739/react-native-android-couldnt-find-a-component-getcomponent-or-children'
-    },
-    {
-      id: '10',
-      link: 'https://stackoverflow.com/questions/64621739/react-native-android-couldnt-find-a-component-getcomponent-or-children'
-    },
-    {
-      id: '11',
-      link: 'https://stackoverflow.com/questions/64621739/react-native-android-couldnt-find-a-component-getcomponent-or-children'
-    },
-    {
-      id: '12',
-      link: 'https://stackoverflow.com/questions/64621739/react-native-android-couldnt-find-a-component-getcomponent-or-children'
+  const isFocused = useIsFocused();
+
+  const [links, setLinks] = useState([])
+  const [data, setData] = useState({} || null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function getLinks() {
+      const result = await getLinksSave('links');
+      setLinks(result);
+      setLoading(false)
     }
-  ]
+
+    getLinks()
+  }, [isFocused]);
+
+  function handleItem(item: ListItemProps) {
+    console.log(item)
+    setData(item);
+    setModalVisible(true)
+  }
+
+  async function handleDelete(id: string) {
+    const result = await deleteLink(links, id);
+    setLinks(result)
+  }
+
   return (
     <LinearGradient
       colors={['#03001e', '#7303c0', '#fdeff9']}
@@ -75,13 +61,28 @@ export default function MyLinks() {
 
       <Menu />
       <Title>Meus links</Title>
+
+      {loading && (
+        <ContainerEmpty>
+          <ActivityIndicator color="#fff" size={25} />
+        </ContainerEmpty>
+      )}
+
+      {!loading && links.length === 0 && (
+        <ContainerEmpty>
+          <WarningText>Você ainda não possui nenhum link :(</WarningText>
+        </ContainerEmpty>
+      )}
+
       <ListLinks
-        data={data}
-        renderItem={({ item }) => <ListItem data={item} />}
+        data={links}
         keyExtractor={item => String(item.id)}
-
-
+        renderItem={({ item }) => <ListItem data={item} selectedItem={handleItem} deleteItem={handleDelete} />}
       />
+
+      <Modal visible={modalVisible} transparent animationType="slide">
+        <ModalLink onClose={() => setModalVisible(false)} data={data} />
+      </Modal>
     </LinearGradient>
   )
 }
