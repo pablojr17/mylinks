@@ -20,10 +20,7 @@ import {
 import Menu from '../../components/Menu';
 import ModalLink from '../../components/ModalLink';
 import api from '../../services/api';
-
-// interface DataProps {
-//   link: string;
-// }
+import { saveLink } from '../../utils/storeLinks';
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -39,10 +36,13 @@ export default function Home() {
       const response = await api.post('/shorten', {
         long_url: input
       })
-      console.log(response.data)
+
+
       setData(response.data.link);
       setURL(response.data.long_url)
       setModalVisible(true);
+
+      saveLink('links', response.data.link)
 
       Keyboard.dismiss();
       setLoading(false);

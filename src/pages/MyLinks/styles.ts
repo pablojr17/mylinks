@@ -17,5 +17,5 @@ export const ListLinks = styled(
   contentContainerStyle: { paddingBottom: 20 },
   showsVerticalScrollIndicator: false
 })`
-  
+
 `;

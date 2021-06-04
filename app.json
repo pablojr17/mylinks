@@ -4,6 +4,11 @@
   "expo": {
     "name": "mylink",
     "slug": "mylink",
+    "splash": {
+      "image": "./assets/splashscreen.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
