@@ -49,7 +49,7 @@ export default function Home() {
       setInput('');
 
     } catch (error) {
-      alert('Ops, algo de errado nã oestá certo.')
+      alert('Ops, algo de errado não está certo.')
       Keyboard.dismiss();
       setInput('');
       setLoading(false);

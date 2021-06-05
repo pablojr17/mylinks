@@ -6,13 +6,13 @@ export interface ListItemProps {
   url: string
 }
 
-interface Props {
-  key: string;
-  newLink: ListItemProps;
-  link: ListItemProps;
-  selectedItem: (data: ListItemProps) => void;
-  deleteItem: (id: string) => void
-}
+// interface Props {
+//   key: string;
+//   newLink: ListItemProps;
+//   link: ListItemProps;
+//   selectedItem: (data: ListItemProps) => void;
+//   deleteItem: (id: string) => void
+// }
 
 export async function getLinksSave(key: string) {
   const myLinks = await AsyncStorage.getItem(key);
